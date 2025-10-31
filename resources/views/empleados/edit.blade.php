@@ -63,6 +63,13 @@
             <input type="text" name="celular" id="celular" class="form-control" value="{{ old('celular', $empleado->celular) }}" required>
         </div>
 
+        {{-- salario --}}
+        <div class="mb-3">
+            <label for="salario_mensual" class="form-label">Salario Mensual</label>
+            <input type="number" name="salario_mensual" class="form-control" id="salario_mensual"
+                value="{{ old('salario_mensual', $empleado->salario_mensual ?? '') }}" step="0.01" required>
+        </div>
+
         {{-- Fechas --}}
         <div class="mb-3">
             <label for="fecha_ingreso" class="form-label">Fecha de Ingreso</label>

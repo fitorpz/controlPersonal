@@ -71,6 +71,17 @@
                             Permisos
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark {{ request()->routeIs('parametros.*') ? 'active fw-semibold' : '' }}" href="{{ route('parametros.index') }}">
+                            Parámetros
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark {{ request()->routeIs('planillas.*') ? 'active fw-semibold' : '' }}" href="{{ route('planillas.index') }}">
+                            Planillas
+                        </a>
+                    </li>
+
 
                 </ul>
 

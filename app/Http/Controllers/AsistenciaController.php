@@ -26,39 +26,36 @@ class AsistenciaController extends Controller
     public function storeEntrada(Request $request)
     {
         $request->validate([
-            'ci' => 'required|string',
+            'codigo' => 'required|string',
             'ubicacion_marcaje' => 'nullable|string',
         ]);
 
-        // Buscar empleado por C.I.
-        $empleado = Empleado::where('ci', $request->ci)->first();
+        // Buscar empleado por código en lugar de CI
+        $empleado = Empleado::where('codigo', $request->codigo)->first();
 
         if (!$empleado) {
-            return back()->with('error', 'Empleado no encontrado con esa C.I.');
+            return back()->with('error', 'Empleado no encontrado con ese código.');
         }
 
         $hoy = Carbon::today()->toDateString();
 
-        // Verificar si ya marcó entrada hoy
-        $asistencia = Asistencia::where('empleado_id', $empleado->id)->where('fecha', $hoy)->first();
+        $asistencia = Asistencia::where('empleado_id', $empleado->id)
+            ->where('fecha', $hoy)
+            ->first();
 
         if ($asistencia && $asistencia->hora_entrada) {
             return back()->with('error', 'Ya se registró la entrada hoy.');
         }
 
-        // Obtener hora actual
         $horaActual = Carbon::now()->format('H:i:s');
 
-        // Buscar horario del empleado (si tiene)
         $horario = Horario::where('empleado_id', $empleado->id)->first();
 
-        // Calcular estado (PRESENTE o RETRASO)
         $estado = 'PRESENTE';
         if ($horario && $horaActual > $horario->hora_entrada) {
             $estado = 'RETRASO';
         }
 
-        // Crear o actualizar asistencia
         if (!$asistencia) {
             $asistencia = new Asistencia();
             $asistencia->empleado_id = $empleado->id;
@@ -73,24 +70,27 @@ class AsistenciaController extends Controller
         return back()->with('success', 'Entrada registrada correctamente.');
     }
 
+
     /**
      * Registrar salida del empleado.
      */
     public function storeSalida(Request $request)
     {
         $request->validate([
-            'ci' => 'required|string',
+            'codigo' => 'required|string',
         ]);
 
-        $empleado = Empleado::where('ci', $request->ci)->first();
+        $empleado = Empleado::where('codigo', $request->codigo)->first();
 
         if (!$empleado) {
-            return back()->with('error', 'Empleado no encontrado con esa C.I.');
+            return back()->with('error', 'Empleado no encontrado con ese código.');
         }
 
         $hoy = Carbon::today()->toDateString();
 
-        $asistencia = Asistencia::where('empleado_id', $empleado->id)->where('fecha', $hoy)->first();
+        $asistencia = Asistencia::where('empleado_id', $empleado->id)
+            ->where('fecha', $hoy)
+            ->first();
 
         if (!$asistencia || !$asistencia->hora_entrada) {
             return back()->with('error', 'No se registró entrada hoy.');
@@ -102,7 +102,6 @@ class AsistenciaController extends Controller
 
         $horaActual = Carbon::now()->format('H:i:s');
 
-        // Verificar horario de salida (si salió antes)
         $horario = Horario::where('empleado_id', $empleado->id)->first();
         if ($horario && $horaActual < $horario->hora_salida) {
             $asistencia->estado = 'SALIDA_ANTICIPADA';

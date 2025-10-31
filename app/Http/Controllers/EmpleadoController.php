@@ -18,29 +18,55 @@ class EmpleadoController extends Controller
     private function generarCodigoUnico()
     {
         do {
-            $codigo = str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
+            // Obtener el último registro de empleados ordenado por código numérico
+            $ultimo = Empleado::orderByDesc('codigo')->first();
+
+            // Si hay registros, incrementa; si no, empieza desde 1000
+            $numero = $ultimo ? intval($ultimo->codigo) + 1 : 1000;
+
+            // Formatear el código a 4 dígitos (sin letras ni ceros a la izquierda)
+            $codigo = str_pad($numero, 4, '0', STR_PAD_LEFT);
         } while (Empleado::where('codigo', $codigo)->exists());
 
         return $codigo;
     }
 
 
+
+
     public function create()
     {
-        $usuarios = User::all();
+        // Obtener los IDs de los usuarios que ya están registrados como empleados
+        $usuariosRegistrados = Empleado::pluck('user_id');
+
+        // Filtrar usuarios que NO estén en la lista anterior
+        $usuarios = User::whereNotIn('id', $usuariosRegistrados)->get();
+
         $codigo = $this->generarCodigoUnico();
+
         return view('empleados.create', compact('usuarios', 'codigo'));
     }
+
 
 
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
+            'user_id' => [
+                'required',
+                'exists:users,id',
+                function ($attribute, $value, $fail) {
+                    if (\App\Models\Empleado::where('user_id', $value)->exists()) {
+                        $fail('Este usuario ya tiene un empleado registrado.');
+                    }
+                },
+            ],
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'edad' => 'required|integer|min:18|max:100',
             'ci' => 'required|string|max:20',
+            'codigo' => 'required|unique:empleados,codigo',
             'celular' => 'required|regex:/^[0-9]{8}$/',
+            'salario_mensual' => 'required|numeric|min:0',
             'fecha_ingreso' => 'required|date',
             'fecha_retiro' => 'nullable|date|after_or_equal:fecha_ingreso',
             'referencia_1_nombre' => 'required|string|max:100',
@@ -51,7 +77,6 @@ class EmpleadoController extends Controller
         ]);
 
         $data = $request->all();
-        $data['codigo'] = $this->generarCodigoUnico();
 
         if ($request->hasFile('foto')) {
             $data['foto'] = $request->file('foto')->store('empleados', 'public');
@@ -79,6 +104,7 @@ class EmpleadoController extends Controller
             'edad' => 'required|integer|min:18|max:100',
             'ci' => 'required|string|max:20',
             'celular' => 'required|regex:/^[0-9]{8}$/',
+            'salario_mensual' => 'required|numeric|min:0',
             'fecha_ingreso' => 'required|date',
             'fecha_retiro' => 'nullable|date|after_or_equal:fecha_ingreso',
             'referencia_1_nombre' => 'required|string|max:100',

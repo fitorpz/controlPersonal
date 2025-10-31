@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('ci');
             $table->string('codigo', 4)->unique();
             $table->string('celular');
+            $table->decimal('salario_mensual', 10, 2)->nullable();
 
             // Fechas
             $table->date('fecha_ingreso');

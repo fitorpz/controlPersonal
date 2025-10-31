@@ -17,6 +17,7 @@ class Empleado extends Model
         'ci',
         'codigo',
         'celular',
+        'salario_mensual',
         'fecha_ingreso',
         'fecha_retiro',
         'referencia_1_nombre',

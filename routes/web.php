@@ -8,6 +8,8 @@ use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\AsistenciaController;
 use App\Http\Controllers\PermisoController;
+use App\Http\Controllers\PlanillaController;
+use App\Http\Controllers\ParametroController;
 use Illuminate\Support\Facades\File;
 
 /*
@@ -60,3 +62,20 @@ Route::post('asistencia/entrada', [AsistenciaController::class, 'storeEntrada'])
 Route::post('asistencia/salida', [AsistenciaController::class, 'storeSalida'])->name('asistencia.salida');
 
 Route::resource('permisos', PermisoController::class);
+
+// Parámetros generales
+Route::get('/parametros', [ParametroController::class, 'index'])->name('parametros.index');
+Route::get('/parametros/{parametro}/edit', [ParametroController::class, 'edit'])->name('parametros.edit');
+Route::put('/parametros/{parametro}', [ParametroController::class, 'update'])->name('parametros.update');
+Route::get('/parametros/create', [ParametroController::class, 'create'])->name('parametros.create');
+Route::post('/parametros', [ParametroController::class, 'store'])->name('parametros.store');
+
+// Parámetros por empleado
+Route::get('/parametros/empleado/{empleado}', [ParametroController::class, 'showEmpleado'])->name('parametros.empleado');
+Route::post('/parametros/empleado/{empleado}', [ParametroController::class, 'updateEmpleado'])->name('parametros.empleado.update');
+
+// Planillas
+Route::get('/planillas', [PlanillaController::class, 'index'])->name('planillas.index');
+Route::get('/planillas/{planilla}', [PlanillaController::class, 'show'])->name('planillas.show');
+Route::get('/planillas/create', [PlanillaController::class, 'create'])->name('planillas.create');
+Route::post('/planillas/generar', [PlanillaController::class, 'generar'])->name('planillas.generar');

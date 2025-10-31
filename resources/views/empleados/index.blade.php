@@ -27,6 +27,7 @@
                     <th>CI</th>
                     <th>Código</th>
                     <th>Celular</th>
+                    <th>Salario</th>
                     <th>Edad</th>
                     <th>Ingreso</th>
                     <th>Retiro</th>
@@ -58,6 +59,7 @@
                     <td>{{ $empleado->ci }}</td>
                     <td>{{ $empleado->codigo }}</td>
                     <td>{{ $empleado->celular }}</td>
+                    <td>{{ $empleado->salario_mensual }}</td>
                     <td>{{ $empleado->edad }}</td>
                     <td>{{ \Carbon\Carbon::parse($empleado->fecha_ingreso)->format('d/m/Y') }}</td>
                     <td>

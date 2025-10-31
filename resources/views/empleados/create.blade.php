@@ -61,12 +61,17 @@
                 <input type="hidden" name="codigo" value="{{ $codigo }}">
             </div>
 
-
-
             {{-- Celular --}}
             <div class="mb-3">
                 <label for="celular" class="form-label">Número de Celular</label>
                 <input type="text" name="celular" id="celular" class="form-control" value="{{ old('celular') }}" required>
+            </div>
+
+            {{-- salario --}}
+            <div class="mb-3">
+                <label for="salario_mensual" class="form-label">Salario Mensual</label>
+                <input type="number" name="salario_mensual" class="form-control" id="salario_mensual"
+                    value="{{ old('salario_mensual', $empleado->salario_mensual ?? '') }}" step="0.01" required>
             </div>
 
             {{-- Fechas --}}
