@@ -6,6 +6,9 @@ use App\Models\Asistencia;
 use App\Models\Empleado;
 use App\Models\Horario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -16,9 +19,23 @@ class AsistenciaController extends Controller
      */
     public function index()
     {
-        $asistencias = Asistencia::with('empleado.user')->orderByDesc('fecha')->get();
+        $usuario = Auth::user();
+
+        if ($usuario->rol === 'usuario') {
+            $empleado = $usuario->empleado;
+
+            if (!$empleado) {
+                abort(403, 'No se encontró un empleado vinculado al usuario.');
+            }
+
+            $asistencias = $empleado->asistencias()->latest()->get();
+        } else {
+            $asistencias = Asistencia::with('empleado')->latest()->get();
+        }
+
         return view('asistencias.index', compact('asistencias'));
     }
+
 
     /**
      * Registrar entrada (puede ser desde login sin sesión).

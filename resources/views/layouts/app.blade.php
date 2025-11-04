@@ -35,9 +35,11 @@
 </head>
 
 <body>
-    <!-- ✅ Mostrar solo si el usuario está autenticado -->
     @auth
-    <!-- ✅ Barra de navegación global -->
+    @php
+    $rol = Auth::user()->rol;
+    @endphp
+
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow">
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center" href="{{ route('dashboard') }}">
@@ -50,11 +52,16 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
                 <ul class="navbar-nav">
+                    @if($rol === 'administrador')
                     <li class="nav-item">
-                        <a class="nav-link text-dark {{ request()->routeIs('usuarios.*') ? 'active fw-semibold' : '' }}" href="{{ route('usuarios.index') }}">Usuarios</a>
+                        <a class="nav-link text-dark {{ request()->routeIs('usuarios.*') ? 'active fw-semibold' : '' }}" href="{{ route('usuarios.index') }}">
+                            Usuarios
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark {{ request()->routeIs('empleados.*') ? 'active fw-semibold' : '' }}" href="{{ route('empleados.index') }}">Registro de Empleados</a>
+                        <a class="nav-link text-dark {{ request()->routeIs('empleados.*') ? 'active fw-semibold' : '' }}" href="{{ route('empleados.index') }}">
+                            Registro de Empleados
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark {{ request()->routeIs('horarios.*') ? 'active fw-semibold' : '' }}" href="{{ route('horarios.index') }}">
@@ -62,18 +69,24 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link text-dark {{ request()->routeIs('parametros.*') ? 'active fw-semibold' : '' }}" href="{{ route('parametros.index') }}">
+                            Parámetros
+                        </a>
+                    </li>
+                    @endif
+
+                    @if(in_array($rol, ['administrador', 'operador', 'usuario']))
+                    <li class="nav-item">
                         <a class="nav-link text-dark {{ request()->routeIs('asistencias.*') ? 'active fw-semibold' : '' }}" href="{{ route('asistencias.index') }}">
                             Asistencias
                         </a>
                     </li>
+                    @endif
+
+                    @if(in_array($rol, ['administrador', 'operador']))
                     <li class="nav-item">
                         <a class="nav-link text-dark {{ request()->routeIs('permisos.*') ? 'active fw-semibold' : '' }}" href="{{ route('permisos.index') }}">
                             Permisos
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark {{ request()->routeIs('parametros.*') ? 'active fw-semibold' : '' }}" href="{{ route('parametros.index') }}">
-                            Parámetros
                         </a>
                     </li>
                     <li class="nav-item">
@@ -81,8 +94,7 @@
                             Planillas
                         </a>
                     </li>
-
-
+                    @endif
                 </ul>
 
                 <form method="POST" action="{{ route('logout') }}">
@@ -101,8 +113,8 @@
     <!-- Scripts globales -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    @stack('scripts') {{-- Por si usas @push en alguna vista --}}
-    @yield('scripts') {{-- Para incluir scripts personalizados como Google Maps --}}
+    @stack('scripts')
+    @yield('scripts')
 </body>
 
 </html>

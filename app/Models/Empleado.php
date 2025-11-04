@@ -30,14 +30,18 @@ class Empleado extends Model
     // Relación con el usuario
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
-
+    public function usuario()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'user_id');
+    }
 
     public function asistencias()
     {
-        return $this->hasMany(Asistencia::class);
+        return $this->hasMany(\App\Models\Asistencia::class);
     }
+
 
     public function horarios()
     {
