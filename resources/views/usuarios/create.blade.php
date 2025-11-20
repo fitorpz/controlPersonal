@@ -3,8 +3,12 @@
 @section('title', 'Nuevo Usuario')
 
 @section('content')
+
+
+
 <div class="container d-flex justify-content-center">
-    <div class="card shadow p-4" style="width: 100%; max-width: 700px;">
+    <div class="card shadow p-4 mg-card" style="width: 100%; max-width: 700px;">
+
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h5 class="mb-0">Registrar Nuevo Usuario</h5>
             <a href="{{ route('usuarios.index') }}" class="btn btn-sm btn-outline-secondary">← Volver</a>
@@ -20,7 +24,7 @@
         </div>
         @endif
 
-        <form action="{{ route('usuarios.store') }}" method="POST" class="mt-3">
+        <form action="{{ route('usuarios.store') }}" method="POST" class="mt-3 mg-form">
             @csrf
 
             <div class="mb-3">
@@ -76,4 +80,5 @@
         </form>
     </div>
 </div>
+
 @endsection

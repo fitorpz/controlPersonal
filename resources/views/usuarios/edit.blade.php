@@ -3,8 +3,11 @@
 @section('title', 'Editar Usuario')
 
 @section('content')
+
+
 <div class="container d-flex justify-content-center">
-    <div class="card shadow p-4" style="width: 100%; max-width: 700px;">
+    <div class="card shadow p-4 mg-card" style="width: 100%; max-width: 700px;">
+
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h5 class="mb-0">Editar Usuario</h5>
             <a href="{{ route('usuarios.index') }}" class="btn btn-sm btn-outline-secondary">← Volver</a>
@@ -20,28 +23,32 @@
         </div>
         @endif
 
-        <form action="{{ route('usuarios.update', $usuario) }}" method="POST" class="mt-3">
+        <form action="{{ route('usuarios.update', $usuario) }}" method="POST" class="mt-3 mg-form">
             @csrf
             @method('PUT')
 
             <div class="mb-3">
                 <label for="nombres" class="form-label">Nombres</label>
-                <input type="text" name="nombres" id="nombres" class="form-control" value="{{ old('nombres', $usuario->nombres) }}" required>
+                <input type="text" name="nombres" id="nombres" class="form-control"
+                    value="{{ old('nombres', $usuario->nombres) }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="apellido_paterno" class="form-label">Apellido Paterno</label>
-                <input type="text" name="apellido_paterno" id="apellido_paterno" class="form-control" value="{{ old('apellido_paterno', $usuario->apellido_paterno) }}">
+                <input type="text" name="apellido_paterno" id="apellido_paterno" class="form-control"
+                    value="{{ old('apellido_paterno', $usuario->apellido_paterno) }}">
             </div>
 
             <div class="mb-3">
                 <label for="apellido_materno" class="form-label">Apellido Materno</label>
-                <input type="text" name="apellido_materno" id="apellido_materno" class="form-control" value="{{ old('apellido_materno', $usuario->apellido_materno) }}">
+                <input type="text" name="apellido_materno" id="apellido_materno" class="form-control"
+                    value="{{ old('apellido_materno', $usuario->apellido_materno) }}">
             </div>
 
             <div class="mb-3">
                 <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" name="email" id="email" class="form-control" value="{{ old('email', $usuario->email) }}" required>
+                <input type="email" name="email" id="email" class="form-control"
+                    value="{{ old('email', $usuario->email) }}" required>
             </div>
 
             <div class="mb-3">
@@ -63,7 +70,6 @@
                 <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
             </div>
 
-
             <div class="mb-3">
                 <label for="estado" class="form-label">Estado</label>
                 <select name="estado" id="estado" class="form-select" required>
@@ -75,7 +81,9 @@
             <div class="text-end">
                 <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
             </div>
+
         </form>
     </div>
 </div>
+
 @endsection

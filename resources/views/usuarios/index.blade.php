@@ -9,15 +9,17 @@ $rol = auth()->user()->rol ?? null;
 @endphp
 
 @if ($rol !== 'administrador')
+
 <div class="container mt-5 text-center">
     <h3 class="text-danger">🚫 Acceso denegado</h3>
     <p>No tienes permiso para ver este módulo.</p>
     <a href="{{ route('dashboard') }}" class="btn btn-primary mt-3">Volver al inicio</a>
 </div>
+
 @else
 
 <div class="container d-flex justify-content-between align-items-center mb-4" style="max-width: 1000px;">
-    <h4 class="mb-0">Lista de usuarios</h4>
+    <h4 class="mb-0" style="color:#FCCB00;">Lista de usuarios</h4>
     <a href="{{ route('usuarios.create') }}" class="btn btn-primary">+ Nuevo Usuario</a>
 </div>
 
@@ -31,8 +33,8 @@ $rol = auth()->user()->rol ?? null;
 
 <div class="container" style="max-width: 1000px;">
     <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle text-center">
-            <thead class="table-light">
+        <table class="table mg-table table-bordered table-hover align-middle text-center">
+            <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nombres</th>
@@ -44,6 +46,7 @@ $rol = auth()->user()->rol ?? null;
                     <th>Acciones</th>
                 </tr>
             </thead>
+
             <tbody>
                 @forelse ($usuarios as $usuario)
                 <tr>
@@ -53,6 +56,7 @@ $rol = auth()->user()->rol ?? null;
                     <td>{{ $usuario->apellido_materno }}</td>
                     <td>{{ $usuario->email }}</td>
                     <td>{{ ucfirst($usuario->rol) }}</td>
+
                     <td>
                         @if ($usuario->estado === 'activo')
                         <span class="badge bg-success">Activo</span>
@@ -60,6 +64,7 @@ $rol = auth()->user()->rol ?? null;
                         <span class="badge bg-secondary">Inactivo</span>
                         @endif
                     </td>
+
                     <td>
                         <a href="{{ route('usuarios.edit', $usuario) }}" class="btn btn-sm btn-warning">Editar</a>
                         <form action="{{ route('usuarios.destroy', $usuario) }}" method="POST" style="display:inline;">
@@ -69,9 +74,10 @@ $rol = auth()->user()->rol ?? null;
                         </form>
                     </td>
                 </tr>
+
                 @empty
                 <tr>
-                    <td colspan="8">No se encontraron usuarios.</td>
+                    <td colspan="8" class="text-center">No se encontraron usuarios.</td>
                 </tr>
                 @endforelse
             </tbody>

@@ -3,8 +3,10 @@
 @section('title', 'Registrar Nuevo Empleado')
 
 @section('content')
+
 <div class="container d-flex justify-content-center">
-    <div class="card shadow p-4 w-100" style="max-width: 700px;">
+    <div class="card shadow p-4 mg-card w-100" style="max-width: 700px;">
+
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h5 class="mb-0">Registrar Nuevo Empleado</h5>
             <a href="{{ route('empleados.index') }}" class="btn btn-sm btn-outline-secondary">← Volver</a>
@@ -20,7 +22,7 @@
         </div>
         @endif
 
-        <form action="{{ route('empleados.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('empleados.store') }}" method="POST" enctype="multipart/form-data" class="mg-form">
             @csrf
 
             {{-- Usuario --}}
@@ -54,10 +56,10 @@
                 <input type="text" name="ci" id="ci" class="form-control" value="{{ old('ci') }}" required>
             </div>
 
-            {{-- Codigo --}}
-            <div class="form-group">
-                <label for="codigo">Código (autogenerado)</label>
-                <input type="text" class="form-control" name="codigo_visible" id="codigo_visible" value="{{ $codigo }}" disabled>
+            {{-- Código --}}
+            <div class="mb-3">
+                <label for="codigo_visible" class="form-label">Código (autogenerado)</label>
+                <input type="text" class="form-control" id="codigo_visible" value="{{ $codigo }}" disabled>
                 <input type="hidden" name="codigo" value="{{ $codigo }}">
             </div>
 
@@ -67,7 +69,7 @@
                 <input type="text" name="celular" id="celular" class="form-control" value="{{ old('celular') }}" required>
             </div>
 
-            {{-- salario --}}
+            {{-- Salario --}}
             <div class="mb-3">
                 <label for="salario_mensual" class="form-label">Salario Mensual</label>
                 <input type="number" name="salario_mensual" class="form-control" id="salario_mensual"
@@ -80,6 +82,7 @@
                     <label for="fecha_ingreso" class="form-label">Fecha de Ingreso</label>
                     <input type="date" name="fecha_ingreso" id="fecha_ingreso" class="form-control" required>
                 </div>
+
                 <div class="col-md-6 mb-3">
                     <label for="fecha_retiro" class="form-label">Fecha de Retiro (opcional)</label>
                     <input type="date" name="fecha_retiro" id="fecha_retiro" class="form-control">
@@ -108,21 +111,24 @@
                 <input type="text" name="referencia_2_celular" id="referencia_2_celular" class="form-control">
             </div>
 
-            {{-- Ubicación por enlace --}}
+            {{-- Ubicación --}}
             <div class="mb-3">
                 <label for="ubicacion_domicilio" class="form-label">Ubicación de Domicilio (enlace de Google Maps)</label>
                 <input type="url" name="ubicacion_domicilio" id="ubicacion_domicilio" class="form-control"
                     placeholder="https://maps.app.goo.gl/..." value="{{ old('ubicacion_domicilio') }}" required>
+
                 <small class="text-muted">
                     Desde tu celular: abre Google Maps → mantén presionado tu domicilio → presiona “Compartir” → “Copiar enlace” → pega aquí.
                 </small>
             </div>
 
-
             <div class="text-end">
                 <button type="submit" class="btn btn-primary">Guardar Empleado</button>
             </div>
+
         </form>
+
     </div>
 </div>
+
 @endsection

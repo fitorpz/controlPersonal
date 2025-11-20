@@ -7,23 +7,15 @@
 <div class="login-box text-center">
     <img src="{{ asset('logominigolden.png') }}" class="img-fluid" style="max-height: 200px;"><br><br>
 
-    {{-- Mensajes de éxito o error del sistema --}}
+    {{-- Mensajes de éxito o error --}}
     @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
+    <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-
     @if (session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
+    <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
-
     @if ($errors->any())
-    <div class="alert alert-danger">
-        {{ $errors->first() }}
-    </div>
+    <div class="alert alert-danger">{{ $errors->first() }}</div>
     @endif
 
     {{-- Formulario de inicio de sesión --}}
@@ -43,17 +35,20 @@
         </div>
 
         <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
-
-        <button type="button" class="btn btn-outline-success w-100 mt-3"
-            data-bs-toggle="modal" data-bs-target="#asistenciaModal">
-            🟩 Marcar Asistencia
-        </button>
-
-        <button type="button" class="btn btn-outline-danger w-100 mt-2"
-            data-bs-toggle="modal" data-bs-target="#salidaModal">
-            🟥 Marcar Salida
-        </button>
     </form>
+</div>
+
+{{-- Botones de asistencia (fuera del login-box) --}}
+<div class="text-center mt-4" style="max-width: 400px; margin:auto;">
+    <button type="button" class="btn btn-outline-success w-100 mb-2"
+        data-bs-toggle="modal" data-bs-target="#asistenciaModal">
+        🟩 Marcar Asistencia
+    </button>
+
+    <button type="button" class="btn btn-outline-danger w-100"
+        data-bs-toggle="modal" data-bs-target="#salidaModal">
+        🟥 Marcar Salida
+    </button>
 </div>
 
 {{-- MODAL: Marcar Asistencia --}}
@@ -122,6 +117,10 @@
 
 @push('styles')
 <style>
+    body {
+        background-color: #cfe4ff;
+    }
+
     .login-box {
         max-width: 400px;
         margin: auto;
@@ -144,6 +143,12 @@
     #horaSalida {
         font-size: 1.1rem;
         color: #555;
+    }
+
+    .btn-outline-success,
+    .btn-outline-danger {
+        border-width: 2px;
+        font-weight: 600;
     }
 </style>
 

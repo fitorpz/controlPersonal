@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Asistencia;
 use App\Models\Empleado;
 use App\Models\Horario;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,6 +43,7 @@ class AsistenciaController extends Controller
      */
     public function storeEntrada(Request $request)
     {
+        Log::info('Intentando registrar entrada', $request->all());
         $request->validate([
             'codigo' => 'required|string',
             'ubicacion_marcaje' => 'nullable|string',
@@ -51,14 +53,19 @@ class AsistenciaController extends Controller
         $empleado = Empleado::where('codigo', $request->codigo)->first();
 
         if (!$empleado) {
+            Log::warning('Empleado no encontrado con código: ' . $request->codigo);
             return back()->with('error', 'Empleado no encontrado con ese código.');
         }
+
+        Log::info('Empleado encontrado', ['empleado_id' => $empleado->id]);
+
 
         $hoy = Carbon::today()->toDateString();
 
         $asistencia = Asistencia::where('empleado_id', $empleado->id)
-            ->where('fecha', $hoy)
+            ->whereDate('fecha', $hoy)
             ->first();
+
 
         if ($asistencia && $asistencia->hora_entrada) {
             return back()->with('error', 'Ya se registró la entrada hoy.');
@@ -106,8 +113,9 @@ class AsistenciaController extends Controller
         $hoy = Carbon::today()->toDateString();
 
         $asistencia = Asistencia::where('empleado_id', $empleado->id)
-            ->where('fecha', $hoy)
+            ->whereDate('fecha', $hoy)
             ->first();
+
 
         if (!$asistencia || !$asistencia->hora_entrada) {
             return back()->with('error', 'No se registró entrada hoy.');

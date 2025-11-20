@@ -72,10 +72,10 @@ Route::middleware(['auth', 'rol:administrador,operador'])->group(function () {
 // 👤 TODOS LOS ROLES pueden usar esta ruta
 // (Usuario, Operador, Administrador)
 // ---------------------------------------------
+Route::post('/asistencia/entrada', [AsistenciaController::class, 'storeEntrada'])->name('asistencia.entrada');
+Route::post('/asistencia/salida', [AsistenciaController::class, 'storeSalida'])->name('asistencia.salida');
 Route::middleware(['auth', 'rol:usuario,operador,administrador'])->group(function () {
     Route::get('/asistencias', [AsistenciaController::class, 'index'])->name('asistencias.index');
-    Route::post('/asistencia/entrada', [AsistenciaController::class, 'storeEntrada'])->name('asistencia.entrada');
-    Route::post('/asistencia/salida', [AsistenciaController::class, 'storeSalida'])->name('asistencia.salida');
 });
 
 // ---------------------------------------------

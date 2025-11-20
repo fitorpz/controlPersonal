@@ -3,9 +3,11 @@
 @section('title', 'Lista de Empleados')
 
 @section('content')
-<div class="container">
+
+<div class="container" style="max-width: 1200px;">
+
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3>Lista de Empleados</h3>
+        <h3 class="mb-0" style="color:#FCCB00;">Lista de Empleados</h3>
         <a href="{{ route('empleados.create') }}" class="btn btn-primary">+ Nuevo Empleado</a>
     </div>
 
@@ -16,11 +18,15 @@
     @endif
 
     @if($empleados->isEmpty())
-    <p>No hay empleados registrados.</p>
+
+    <p class="text-light">No hay empleados registrados.</p>
+
     @else
+
     <div class="table-responsive">
-        <table class="table table-bordered table-striped align-middle text-center">
-            <thead class="table-light">
+        <table class="table mg-table table-bordered table-hover align-middle text-center">
+
+            <thead>
                 <tr>
                     <th>Foto</th>
                     <th>Nombre Completo</th>
@@ -37,19 +43,23 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
+
             <tbody>
                 @foreach ($empleados as $empleado)
                 <tr>
+
                     {{-- Foto --}}
                     <td>
                         @if($empleado->foto)
-                        <img src="{{ asset('storage/' . $empleado->foto) }}" alt="Foto" width="50" height="50" class="rounded-circle">
+                        <img src="{{ asset('storage/' . $empleado->foto) }}"
+                            alt="Foto" width="50" height="50"
+                            class="rounded-circle">
                         @else
                         <span class="text-muted">Sin foto</span>
                         @endif
                     </td>
 
-                    {{-- Nombre completo del usuario relacionado --}}
+                    {{-- Nombre completo --}}
                     <td>
                         {{ $empleado->user->nombres ?? '' }}
                         {{ $empleado->user->apellido_paterno ?? '' }}
@@ -61,7 +71,9 @@
                     <td>{{ $empleado->celular }}</td>
                     <td>{{ $empleado->salario_mensual }}</td>
                     <td>{{ $empleado->edad }}</td>
+
                     <td>{{ \Carbon\Carbon::parse($empleado->fecha_ingreso)->format('d/m/Y') }}</td>
+
                     <td>
                         @if ($empleado->fecha_retiro)
                         {{ \Carbon\Carbon::parse($empleado->fecha_retiro)->format('d/m/Y') }}
@@ -89,7 +101,10 @@
                     {{-- Ubicación --}}
                     <td>
                         @if ($empleado->ubicacion_domicilio)
-                        <a href="{{ $empleado->ubicacion_domicilio }}" target="_blank" class="btn btn-sm btn-outline-primary">Ver</a>
+                        <a href="{{ $empleado->ubicacion_domicilio }}" target="_blank"
+                            class="btn btn-sm btn-outline-secondary">
+                            Ver
+                        </a>
                         @else
                         <span class="text-muted">No registrada</span>
                         @endif
@@ -97,18 +112,28 @@
 
                     {{-- Acciones --}}
                     <td>
-                        <a href="{{ route('empleados.edit', $empleado) }}" class="btn btn-sm btn-warning">Editar</a>
-                        <form action="{{ route('empleados.destroy', $empleado) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('¿Seguro que deseas eliminar este empleado?')">
+                        <a href="{{ route('empleados.edit', $empleado) }}"
+                            class="btn btn-sm btn-warning">Editar</a>
+
+                        <form action="{{ route('empleados.destroy', $empleado) }}"
+                            method="POST" style="display:inline-block;"
+                            onsubmit="return confirm('¿Seguro que deseas eliminar este empleado?')">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-sm btn-danger" type="submit">Eliminar</button>
+                            <button class="btn btn-sm btn-danger" type="submit">
+                                Eliminar
+                            </button>
                         </form>
                     </td>
+
                 </tr>
                 @endforeach
             </tbody>
+
         </table>
     </div>
+
     @endif
 </div>
+
 @endsection

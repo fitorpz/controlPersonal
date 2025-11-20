@@ -1,0 +1,176 @@
+/* ESTILO LISTA */
+
+.mg-table {
+    background-color: #111;
+    color: #fff;
+    border: 1px solid #FCCB00;
+}
+
+.mg-table thead th {
+    background-color: #FCCB00 !important;
+    color: #000 !important;
+    font-weight: bold;
+    border: 1px solid #000 !important;
+    text-transform: uppercase;
+}
+
+.mg-table td,
+.mg-table th {
+    border: 1px solid #FCCB00 !important;
+}
+
+.mg-table tbody tr:hover {
+    background-color: rgba(255, 46, 190, 0.25) !important;
+}
+
+/* Botones */
+.btn-warning {
+    background-color: #FCCB00 !important;
+    color: #000 !important;
+    border: none !important;
+    font-weight: bold;
+}
+
+.btn-danger {
+    background-color: #FF2E2E !important;
+    border: none !important;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #FF2EBE !important;
+    border: none !important;
+    font-weight: bold;
+}
+
+/* Badge */
+.badge.bg-success {
+    background-color: #1bcf63 !important;
+    font-weight: bold;
+}
+
+.badge.bg-secondary {
+    background-color: #777 !important;
+}
+
+/* 🎨 ESTILO REGISTRO */
+.mg-card {
+    background-color: #111 !important;
+    border: 1px solid #FCCB00 !important;
+    color: #FFF;
+    border-radius: 10px;
+}
+
+.mg-card h5 {
+    color: #FCCB00;
+    font-weight: bold;
+}
+
+.btn-outline-secondary {
+    border-color: #FCCB00 !important;
+    color: #FCCB00 !important;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #FCCB00 !important;
+    color: #000 !important;
+}
+
+.mg-form label {
+    color: #FCCB00 !important;
+    font-weight: 600;
+}
+
+.mg-form input,
+.mg-form select,
+.mg-form textarea {
+    background-color: #222 !important;
+    color: #FFF !important;
+    border: 1px solid #FCCB00 !important;
+    border-radius: 6px !important;
+}
+
+.mg-form input:focus,
+.mg-form select:focus,
+.mg-form textarea:focus {
+    border-color: #FF2EBE !important;
+    box-shadow: 0 0 6px #FF2EBE !important;
+}
+
+.alert-danger {
+    background-color: rgba(255, 46, 46, 0.2) !important;
+    border-left: 4px solid #FF2E2E !important;
+    color: #FF2E2E !important;
+}
+
+.btn-primary {
+    background-color: #FF2EBE !important;
+    border: none !important;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+/* 🎨 ESTILO EDICION */
+
+.mg-card {
+    background-color: #111 !important;
+    border: 1px solid #FCCB00 !important;
+    color: #FFF;
+    border-radius: 10px;
+}
+
+.mg-card h5 {
+    color: #FCCB00;
+    font-weight: bold;
+}
+
+.btn-outline-secondary {
+    border-color: #FCCB00 !important;
+    color: #FCCB00 !important;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #FCCB00 !important;
+    color: #000 !important;
+}
+
+.mg-form label {
+    color: #FCCB00 !important;
+    font-weight: 600;
+}
+
+.mg-form input,
+.mg-form select,
+.mg-form textarea {
+    background-color: #222 !important;
+    color: #FFF !important;
+    border: 1px solid #FCCB00 !important;
+    border-radius: 6px !important;
+}
+
+.mg-form input:focus,
+.mg-form select:focus,
+.mg-form textarea:focus {
+    border-color: #FF2EBE !important;
+    box-shadow: 0 0 6px #FF2EBE !important;
+    background-color: #000 !important;
+}
+
+.alert-danger {
+    background-color: rgba(255, 46, 46, 0.2) !important;
+    border-left: 4px solid #FF2E2E !important;
+    color: #FF2E2E !important;
+}
+
+.btn-primary {
+    background-color: #FF2EBE !important;
+    border: none !important;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
